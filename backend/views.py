@@ -17,7 +17,7 @@ from django.http import HttpResponseRedirect
 @login_required
 def index(request):
     context = dict()
-    if request.user.groups.filter(name='Склад').exists():
+    if request.user.groups.filter(name='Методист').exists():
         return render(request, 'index-1.html', context)
     else:
         # Если пользователь не входит ни в одну из этих групп

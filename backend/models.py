@@ -27,31 +27,43 @@ class TestType(models.Model):
 
     def __str__(self):
         return self.name
-
-class Test(models.Model):
-    test_type = models.ForeignKey(TestType, on_delete=models.CASCADE, related_name='tests')
-    name = models.CharField(max_length=200)
+    
+class AgeRange(models.Model):
+    name = models.CharField(max_length=50)
+    min_age = models.IntegerField()
+    max_age = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.min_age}-{self.max_age})"
+    
+class Test(models.Model):
+    test_type = models.ForeignKey(TestType, on_delete=models.CASCADE)
+    age_range = models.ForeignKey(AgeRange, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"Test: {self.test_type.name} ({self.age_range})"
+    
 class Question(models.Model):
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='questions')
+    test = models.ForeignKey('Test', on_delete=models.CASCADE)
     text = models.TextField()
 
     def __str__(self):
-        return self.text
-
-class Answer(models.Model):
-    child = models.ForeignKey('Child', on_delete=models.CASCADE, related_name='answers')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer_text = models.TextField()
-    answered_by = models.ForeignKey('GroupLeader', on_delete=models.SET_NULL, null=True)
-    answered_at = models.DateTimeField(auto_now_add=True)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='answers')  # Добавлено поле ForeignKey для связи с Test
+        return str(self.test)
+    
+class AnswerQuestion(models.Model):
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    child = models.ForeignKey('Child', on_delete=models.CASCADE)
+    answer = [
+        ('choice1', 'Вариант 1'),
+        ('choice2', 'Вариант 2'),
+        ('choice3', 'Вариант 3'),
+        ('choice4', 'Вариант 4'),
+    ]
+    text = models.CharField(max_length=20, choices=answer)
 
     def __str__(self):
-        return f"Answer by {self.child.first_name} {self.child.last_name} to {self.question.text} in Test: {self.test.name}"
+        return str(self.children)
+
 
 
 class GroupLeader(models.Model):
