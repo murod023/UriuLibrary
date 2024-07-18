@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка PDF</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container1">
+            <div class="burger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div calss="nav">
+                <ul class="nav-links">
+                    <li><a href="./index.html">Menu</a></li>
+                    <hr width="80%" align="center"> 
+                    <li><a href="./document.html">Hujjatlar</a></li>
+                    <hr width="80%" align="center"> 
+                    <li><a href="./list.html">Rivojlanish xaritasi</a></li>
+                    <hr width="80%" align="center"> 
+                    <li><a href="#">bir narsa</a></li>
+                    <hr width="80%" align="center"> 
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            <div class="logo">
+                <img src="./detsad (1).png" alt="Logo">
+            </div>
+        </div>
+    </header>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <div class="bola__buttons  mt-150">
+            <div class="button_bola button_bola1" onclick="showWindow('window1')">Окно 1</div>
+            <div class="button_bola button_bola2" onclick="showWindow('window2')">Окно 2</div>
+            <div class="button_bola button_bola3" onclick="showWindow('window3')">Окно 3</div>
+        </div>
+        <div id="window1" class="window">
+            <h2>Окно 1</h2>
+            <p>Содержимое окна 1.</p>
+        </div>
+        <div id="window2" class="window">
+            <h2>Окно 2</h2>
+            <p>Содержимое окна 2.</p>
+        </div>
+        <div id="window3" class="window">
+            <h2>Окно 3</h2>
+            <p>Содержимое окна 3.</p>
+        </div>
+        <button class="accordion">Секция 1</button>
+        <div class="panel">
+            <p>Содержимое секции 1.</p>
+        </div>
+    
+        <button class="accordion">Секция 2</button>
+        <div class="panel">
+            <p>Содержимое секции 2.</p>
+        </div>
+    
+        <button class="accordion">Секция 3</button>
+        <div class="panel">
+            <p>Содержимое секции 3.</p>
+        </div>
+
+    </div>
+    
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,27 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="wide wow-animation scrollTo" lang="en">
-  <head>
-    <!-- Site Title-->
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <meta charset="utf-8">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="keywords" content="intense web design multipurpose template">
-    <meta name="date" content="Dec 26">
-    <link rel="icon" href="{% static 'media/logo.png' %}" type="image/x-icon">
-    <!-- Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,600,700%7CMerriweather:400,300,300italic,400italic,700,700italic">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-  </head>
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+</head>
 <body>
-  <div class="page text-center">
-    {% block body %}{% endblock %}
-  </div>
-  
+    <header>
+      <div class="container1">
+          
+          <div class="burger">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+          </div>
+          <div calss="nav">
+              <ul class="nav-links">
+                  <li><a href="./index.html">Menu</a></li>
+                  <hr width="80%" align="center"> 
+                  <li><a href="./document.html">Hujjatlar</a></li>
+                  <hr width="80%" align="center"> 
+                  <li><a href="./list.html">Rivojlanish xaritasi</a></li>
+                  <hr width="80%" align="center"> 
+                  <li><a href="#">bir narsa</a></li>
+                  <hr width="80%" align="center"> 
+                  <li><a href="#">Logout</a></li>
+              </ul>
+          </div>
+          <div class="logo">
+              <a href="">
+                  <img src="{% static 'assets/images/detsad (1).png' %}" alt="Logo">
+              </a>
+          </div>
+      </div>
+    </header>
+    <div class="overlay"></div> 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+    <script src="{% static 'assets/app.js' %}"></script>
 </body>
 </html>
