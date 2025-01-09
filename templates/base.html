@@ -5,40 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/light-mode.css' %}" id="theme"   data-light="{% static 'assets/light-mode.css' %}" data-dark="{% static 'assets/dark-mode.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
-    <header>
-      <div class="container1">
-          
-          <div class="burger">
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line"></div>
-          </div>
-          <div calss="nav">
-              <ul class="nav-links">
-                  <li><a href="./index.html">Menu</a></li>
-                  <hr width="80%" align="center"> 
-                  <li><a href="./document.html">Hujjatlar</a></li>
-                  <hr width="80%" align="center"> 
-                  <li><a href="./list.html">Rivojlanish xaritasi</a></li>
-                  <hr width="80%" align="center"> 
-                  <li><a href="#">bir narsa</a></li>
-                  <hr width="80%" align="center"> 
-                  <li><a href="#">Logout</a></li>
-              </ul>
-          </div>
-          <div class="logo">
-              <a href="">
-                  <img src="{% static 'assets/images/detsad (1).png' %}" alt="Logo">
-              </a>
-          </div>
-      </div>
-    </header>
-    <div class="overlay"></div> 
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
-    <script src="{% static 'assets/app.js' %}"></script>
+    {% block body %}{% endblock %}
+    <div id="switchMode" class="bi bi-lightbulb zz"></div>
+    <script src="{% static 'assets/scripts.js' %}"></script>
 </body>
 </html>

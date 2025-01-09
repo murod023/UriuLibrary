@@ -1,81 +1,59 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Child(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    age = models.PositiveIntegerField()
-    group = models.ForeignKey('Group', on_delete=models.SET_NULL, null=True, related_name='ChildrenGroup')
+from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+class CustomUser(AbstractUser):
+    # Talaba ID (логин)
+    username = models.CharField(max_length=20, unique=True, blank=False, null=False)
     
-class Group(models.Model):
-    name = models.CharField(max_length=100)
-    kindergarten = models.ForeignKey('Kindergarten', on_delete=models.SET_NULL, null=True, related_name='Kindergarten')
-
-    def __str__(self):
-        return self.name
+    # Текущие дополнительные поля
+    full_name = models.CharField(max_length=255, blank=True, null=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    passport_issue_date = models.DateField(null=True, blank=True)
+    jshshir_code = models.CharField(max_length=14, blank=True, null=True)  # JSHSHIR-код
+    course = models.CharField(max_length=10, blank=True, null=True)
+    group = models.CharField(max_length=10, blank=True, null=True)
+    academic_year = models.CharField(max_length=20, blank=True, null=True)
+    semester = models.CharField(max_length=10, blank=True, null=True)
+    specialization = models.CharField(max_length=100, blank=True, null=True)
+    education_type = models.CharField(max_length=50, blank=True, null=True)  # "O‘quv yili"
+    education_form = models.CharField(max_length=50, blank=True, null=True)  # "Ta’lim shakli"
     
-class Kindergarten(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-class TestType(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
+    # Поле для хранения изображения профиля (опционально)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     
-class AgeRange(models.Model):
-    name = models.CharField(max_length=50)
-    min_age = models.IntegerField()
-    max_age = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.name} ({self.min_age}-{self.max_age})"
+    # Поле для того, чтобы пометить администратора
+    is_admin = models.BooleanField(default=False)  # Admin flag
     
-class Test(models.Model):
-    test_type = models.ForeignKey(TestType, on_delete=models.CASCADE)
-    age_range = models.ForeignKey(AgeRange, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.full_name if self.full_name else self.username
+
+
+# Модель для физических книг
+class PhysicalBook(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    publication_date = models.DateField()
+    available_copies = models.PositiveIntegerField(default=1)
+    category = models.CharField(max_length=100, blank=True, null=True)
+    language = models.CharField(max_length=50, blank=True, null=True)
+    isbn = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    publisher = models.CharField(max_length=255, blank=True, null=True)
+    pages = models.PositiveIntegerField(null=True, blank=True)
+    cover_image = models.ImageField(upload_to='covers/', null=True, blank=True)
 
     def __str__(self):
-        return f"Test: {self.test_type.name} ({self.age_range})"
-    
-class Question(models.Model):
-    test = models.ForeignKey('Test', on_delete=models.CASCADE)
-    text = models.TextField()
+        return self.title
+
+
+class ElectronicBook(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255, blank=True, null=True)
+    category = models.CharField(max_length=100, blank=True)
+    file = models.FileField(upload_to='ebooks/')
 
     def __str__(self):
-        return str(self.test)
-    
-class AnswerQuestion(models.Model):
-    question = models.ForeignKey('Question', on_delete=models.CASCADE)
-    child = models.ForeignKey('Child', on_delete=models.CASCADE)
-    answer = [
-        ('choice1', 'Вариант 1'),
-        ('choice2', 'Вариант 2'),
-        ('choice3', 'Вариант 3'),
-        ('choice4', 'Вариант 4'),
-    ]
-    text = models.CharField(max_length=20, choices=answer)
-
-    def __str__(self):
-        return str(self.children)
-
-
-
-class GroupLeader(models.Model):
-    name = models.CharField(max_length=100)
-    group = models.ForeignKey('Group', on_delete=models.SET_NULL, null=True, related_name='GroupLeaderGroup')
-
-    def __str__(self):
-        return self.name
-
-class Methodologist(models.Model):
-    name = models.CharField(max_length=100)
-    kindergarten = models.ForeignKey('Kindergarten', on_delete=models.SET_NULL, null=True, related_name='MethodologistKindergarten')
-
-    def __str__(self):
-        return self.name
+        return self.title
